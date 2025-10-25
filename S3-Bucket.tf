@@ -27,6 +27,7 @@ resource "aws_s3_bucket_policy" "public_read" {
       }
     ]
   })
+  depends_on = [aws_s3_bucket_public_access_block.access]
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "bucket" {
@@ -57,4 +58,5 @@ resource "aws_s3_object" "webisteObjects" {
   key = each.value
   source = "Website/${each.value}"
   content_type = "text/html"
+
 }
